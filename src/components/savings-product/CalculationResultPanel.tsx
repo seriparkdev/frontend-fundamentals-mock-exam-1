@@ -1,14 +1,32 @@
 import { useSavingsCalculatorContext } from 'contexts/SavingsCalculatorContext';
-import { Border, colors, ListHeader, ListRow, Spacing } from 'tosslib';
+import { Assets, Border, colors, ListHeader, ListRow, Spacing } from 'tosslib';
 import { formatNumber, removeFormatNumber } from 'utils/format';
 import { calculateExpectedProfit, calculateMonthlyAmount, calculateDifferenceAmount } from 'utils/savingsProduct';
 
 export const CalculationResultPanel = () => {
-  const { selectedSavingsProduct, monthlyAmount, savingsPeriod, targetAmount } = useSavingsCalculatorContext();
+  const {
+    selectedSavingsProduct,
+    setSelectedSavingsProductId,
+    selectedSavingsProductId,
+    monthlyAmount,
+    savingsPeriod,
+    targetAmount,
+    recommendedProducts,
+  } = useSavingsCalculatorContext();
 
   if (!selectedSavingsProduct) {
     return <ListRow contents={<ListRow.Texts type="1RowTypeA" top="상품을 선택해주세요." />} />;
   }
+
+  const isSelected = (productId: string) => selectedSavingsProductId === productId;
+
+  const handleSelect = (productId: string) => {
+    if (isSelected(productId)) {
+      setSelectedSavingsProductId('');
+    } else {
+      setSelectedSavingsProductId(productId);
+    }
+  };
 
   const monthlyAmountNumber = removeFormatNumber(monthlyAmount);
   const targetAmountNumber = removeFormatNumber(targetAmount);
@@ -66,20 +84,24 @@ export const CalculationResultPanel = () => {
       <ListHeader title={<ListHeader.TitleParagraph fontWeight="bold">추천 상품 목록</ListHeader.TitleParagraph>} />
       <Spacing size={12} />
 
-      <ListRow
-        contents={
-          <ListRow.Texts
-            type="3RowTypeA"
-            top={'기본 정기적금'}
-            topProps={{ fontSize: 16, fontWeight: 'bold', color: colors.grey900 }}
-            middle={`연 이자율: 3.2%`}
-            middleProps={{ fontSize: 14, color: colors.blue600, fontWeight: 'medium' }}
-            bottom={`100,000원 ~ 500,000원 | 12개월`}
-            bottomProps={{ fontSize: 13, color: colors.grey600 }}
-          />
-        }
-        onClick={() => {}}
-      />
+      {recommendedProducts.map(product => (
+        <ListRow
+          key={product.id}
+          contents={
+            <ListRow.Texts
+              type="3RowTypeA"
+              top={product.name}
+              topProps={{ fontSize: 16, fontWeight: 'bold', color: colors.grey900 }}
+              middle={`연 이자율: ${product.annualRate}%`}
+              middleProps={{ fontSize: 14, color: colors.blue600, fontWeight: 'medium' }}
+              bottom={`${formatNumber(product.minMonthlyAmount)}원 ~ ${formatNumber(product.maxMonthlyAmount)}원 | ${product.availableTerms}개월`}
+              bottomProps={{ fontSize: 13, color: colors.grey600 }}
+            />
+          }
+          right={isSelected(product.id) ? <Assets.Icon name="icon-check-circle-green" /> : null}
+          onClick={() => handleSelect(product.id)}
+        />
+      ))}
 
       <Spacing size={40} />
     </>

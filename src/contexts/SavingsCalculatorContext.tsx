@@ -16,6 +16,7 @@ interface ContextValue {
   setSelectedSavingsProductId: (id: string) => void;
 
   filteredProducts: SavingsProduct[];
+  recommendedProducts: SavingsProduct[];
 }
 
 const SavingsCalculatorContext = createContext<ContextValue | undefined>(undefined);

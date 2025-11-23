@@ -10,11 +10,12 @@ export const useSavingsCalculator = () => {
   const { targetAmount, monthlyAmount, savingsPeriod, setTargetAmount, setMonthlyAmount, setSavingsPeriod } =
     useProductFilterForm();
 
-  const { filteredProducts, selectedSavingsProductId, setSelectedSavingsProductId } = useFilteredProducts({
-    savingsProducts,
-    monthlyAmount,
-    savingsPeriod,
-  });
+  const { selectedSavingsProductId, setSelectedSavingsProductId, filteredProducts, recommendedProducts } =
+    useFilteredProducts({
+      savingsProducts,
+      monthlyAmount,
+      savingsPeriod,
+    });
 
   const selectedSavingsProduct = useMemo(() => {
     return findSavingsProductById(filteredProducts, selectedSavingsProductId);
@@ -29,6 +30,8 @@ export const useSavingsCalculator = () => {
     setSavingsPeriod,
 
     filteredProducts,
+    recommendedProducts,
+
     selectedSavingsProduct,
     selectedSavingsProductId,
     setSelectedSavingsProductId,

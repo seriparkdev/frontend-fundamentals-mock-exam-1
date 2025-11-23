@@ -21,11 +21,16 @@ export const useFilteredProducts = ({ savingsProducts, monthlyAmount, savingsPer
     [filteredProducts, selectedSavingsProductId]
   );
 
-  return {
-    filteredProducts,
-    selectedProduct,
+  const recommendedProducts = useMemo(() => {
+    return [...filteredProducts].sort((a, b) => b.annualRate - a.annualRate).slice(0, 2);
+  }, [filteredProducts]);
 
+  return {
     selectedSavingsProductId,
     setSelectedSavingsProductId,
+
+    filteredProducts,
+    selectedProduct,
+    recommendedProducts,
   };
 };
