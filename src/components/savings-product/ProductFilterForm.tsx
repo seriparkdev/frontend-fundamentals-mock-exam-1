@@ -1,5 +1,5 @@
 import { SelectBottomSheet, Spacing } from 'tosslib';
-import { AmountField } from './common/AmountField';
+import { AmountField } from '../common/AmountField';
 import { useSavingsCalculatorContext } from 'contexts/SavingsCalculatorContext';
 
 export const ProductFilterForm = () => {

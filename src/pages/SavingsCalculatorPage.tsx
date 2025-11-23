@@ -1,8 +1,8 @@
 import { StatusHandlingBoundary } from 'components/common/StatusHandlingBoundary';
-import { ProductFilterForm } from 'components/ProductFilterForm';
-import { SavingsProductPanel } from 'components/savingsProductPanel';
+import { ProductFilterForm } from 'components/savings-product/ProductFilterForm';
+import { SavingsProductPanel } from 'components/savings-product/savingsProductPanel';
 import { SavingsCalculatorProvider } from 'contexts/SavingsCalculatorContext';
-import { useSavingsCalculator } from 'hooks/useSavingsCalculator';
+import { useSavingsCalculator } from 'hooks/savings-product/useSavingsCalculator';
 import { Border, NavigationBar, Spacing, Tab } from 'tosslib';
 
 export function SavingsCalculatorPage() {
