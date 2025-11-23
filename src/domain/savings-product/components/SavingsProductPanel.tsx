@@ -3,15 +3,15 @@ import { formatNumber } from 'utils/format';
 import { useSavingsCalculatorContext } from 'domain/savings-product/contexts/SavingsCalculatorContext';
 
 export const SavingsProductPanel = () => {
-  const { filteredProducts, selectedSavingsProductId, setSelectedSavingsProductId } = useSavingsCalculatorContext();
+  const { filteredProducts, selectedProductId, setSelectedProductId } = useSavingsCalculatorContext();
 
-  const isSelected = (productId: string) => selectedSavingsProductId === productId;
+  const isSelected = (productId: string) => selectedProductId === productId;
 
   const handleSelect = (productId: string) => {
     if (isSelected(productId)) {
-      setSelectedSavingsProductId('');
+      setSelectedProductId('');
     } else {
-      setSelectedSavingsProductId(productId);
+      setSelectedProductId(productId);
     }
   };
 

@@ -1,9 +1,8 @@
-import { createContext, ReactNode, useContext, useMemo } from 'react';
+import { createContext, ReactNode, useContext } from 'react';
 import { SavingsProduct } from '../api/http';
 import { useFetchSavingsProducts } from '../api/queries';
 import { useProductFilterForm } from '../hooks/useProductFilterForm';
 import { useFilteredProducts } from '../hooks/useFilteredProducts';
-import { findSavingsProductById } from '../utils/filter';
 
 interface ContextValue {
   targetAmount: string;
@@ -15,9 +14,9 @@ interface ContextValue {
   savingsPeriod: number;
   setSavingsPeriod: (terms: number) => void;
 
-  selectedSavingsProduct: SavingsProduct | undefined;
-  selectedSavingsProductId: string;
-  setSelectedSavingsProductId: (id: string) => void;
+  selectedProduct: SavingsProduct | undefined;
+  selectedProductId: string;
+  setSelectedProductId: (id: string) => void;
 
   filteredProducts: SavingsProduct[];
   recommendedProducts: SavingsProduct[];
@@ -31,16 +30,18 @@ export function SavingsCalculatorProvider({ children }: { children: ReactNode })
   const { targetAmount, monthlyAmount, savingsPeriod, setTargetAmount, setMonthlyAmount, setSavingsPeriod } =
     useProductFilterForm();
 
-  const { selectedSavingsProductId, setSelectedSavingsProductId, filteredProducts, recommendedProducts } =
-    useFilteredProducts({
-      savingsProducts,
-      monthlyAmount,
-      savingsPeriod,
-    });
+  const {
+    selectedProductId,
+    setSelectedProductId,
 
-  const selectedSavingsProduct = useMemo(() => {
-    return findSavingsProductById(filteredProducts, selectedSavingsProductId);
-  }, [filteredProducts, selectedSavingsProductId]);
+    filteredProducts,
+    selectedProduct,
+    recommendedProducts,
+  } = useFilteredProducts({
+    savingsProducts,
+    monthlyAmount,
+    savingsPeriod,
+  });
 
   return (
     <SavingsCalculatorContext.Provider
@@ -55,9 +56,9 @@ export function SavingsCalculatorProvider({ children }: { children: ReactNode })
         filteredProducts,
         recommendedProducts,
 
-        selectedSavingsProduct,
-        selectedSavingsProductId,
-        setSelectedSavingsProductId,
+        selectedProduct,
+        selectedProductId,
+        setSelectedProductId,
       }}
     >
       {children}

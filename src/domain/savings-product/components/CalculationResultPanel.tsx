@@ -5,38 +5,38 @@ import { calculateDifferenceAmount, calculateExpectedProfit, calculateMonthlyAmo
 
 export const CalculationResultPanel = () => {
   const {
-    selectedSavingsProduct,
-    setSelectedSavingsProductId,
-    selectedSavingsProductId,
+    selectedProduct,
+    selectedProductId,
+    setSelectedProductId,
     monthlyAmount,
     savingsPeriod,
     targetAmount,
     recommendedProducts,
   } = useSavingsCalculatorContext();
 
-  if (!selectedSavingsProduct) {
+  if (!selectedProduct) {
     return <ListRow contents={<ListRow.Texts type="1RowTypeA" top="상품을 선택해주세요." />} />;
   }
 
-  const isSelected = (productId: string) => selectedSavingsProductId === productId;
+  const isSelected = (productId: string) => selectedProductId === productId;
 
   const handleSelect = (productId: string) => {
     if (isSelected(productId)) {
-      setSelectedSavingsProductId('');
+      setSelectedProductId('');
     } else {
-      setSelectedSavingsProductId(productId);
+      setSelectedProductId(productId);
     }
   };
 
   const monthlyAmountNumber = removeFormatNumber(monthlyAmount);
   const targetAmountNumber = removeFormatNumber(targetAmount);
 
-  const expectedProfit = calculateExpectedProfit(monthlyAmountNumber, savingsPeriod, selectedSavingsProduct.annualRate);
+  const expectedProfit = calculateExpectedProfit(monthlyAmountNumber, savingsPeriod, selectedProduct.annualRate);
 
   const differenceAmount = calculateDifferenceAmount(targetAmountNumber, expectedProfit);
 
   const recommendedMonthlyAmount = calculateMonthlyAmount(
-    selectedSavingsProduct.annualRate,
+    selectedProduct.annualRate,
     savingsPeriod,
     targetAmountNumber
   );

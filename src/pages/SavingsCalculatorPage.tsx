@@ -28,6 +28,7 @@ export function SavingsCalculatorPage() {
           계산 결과
         </Tab.Item>
       </Tab>
+
       <Spacing size={8} />
 
       {selectedTab === 'products' && <SavingsProductPanel />}

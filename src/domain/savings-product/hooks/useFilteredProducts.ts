@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const useFilteredProducts = ({ savingsProducts, monthlyAmount, savingsPeriod }: Props) => {
-  const [selectedSavingsProductId, setSelectedSavingsProductId] = useState<string>('');
+  const [selectedProductId, setSelectedProductId] = useState<string>('');
 
   const filteredProducts = useMemo(
     () => filteredSavingsProducts(savingsProducts, monthlyAmount, savingsPeriod),
@@ -17,8 +17,8 @@ export const useFilteredProducts = ({ savingsProducts, monthlyAmount, savingsPer
   );
 
   const selectedProduct = useMemo(
-    () => findSavingsProductById(filteredProducts, selectedSavingsProductId),
-    [filteredProducts, selectedSavingsProductId]
+    () => findSavingsProductById(filteredProducts, selectedProductId),
+    [filteredProducts, selectedProductId]
   );
 
   const recommendedProducts = useMemo(() => {
@@ -26,8 +26,8 @@ export const useFilteredProducts = ({ savingsProducts, monthlyAmount, savingsPer
   }, [filteredProducts]);
 
   return {
-    selectedSavingsProductId,
-    setSelectedSavingsProductId,
+    selectedProductId,
+    setSelectedProductId,
 
     filteredProducts,
     selectedProduct,
