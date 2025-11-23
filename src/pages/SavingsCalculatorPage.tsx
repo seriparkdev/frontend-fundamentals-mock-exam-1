@@ -2,16 +2,14 @@ import { CalculationResultPanel } from 'components/savings-product/CalculationRe
 import { ProductFilterForm } from 'components/savings-product/ProductFilterForm';
 import { SavingsProductPanel } from 'components/savings-product/SavingsProductPanel';
 import { SavingsCalculatorProvider } from 'contexts/SavingsCalculatorContext';
-import { useSavingsCalculator } from 'hooks/savings-product/useSavingsCalculator';
 import { useState } from 'react';
 import { Border, NavigationBar, Spacing, Tab } from 'tosslib';
 
 export function SavingsCalculatorPage() {
-  const savingsCalculatorValues = useSavingsCalculator();
   const [selectedTab, setSelectedTab] = useState<string>('products');
 
   return (
-    <SavingsCalculatorProvider value={savingsCalculatorValues}>
+    <SavingsCalculatorProvider>
       <NavigationBar title="적금 계산기" />
 
       <Spacing size={16} />

@@ -1,5 +1,9 @@
-import { createContext, ReactNode, useContext } from 'react';
+import { useFetchSavingsProducts } from 'hooks/queries/savingsProduct';
+import { useFilteredProducts } from 'hooks/savings-product/useFilteredProducts';
+import { useProductFilterForm } from 'hooks/savings-product/useProductFilterForm';
+import { createContext, ReactNode, useContext, useMemo } from 'react';
 import { SavingsProduct } from 'types/savingsProduct';
+import { findSavingsProductById } from 'utils/savingsProduct';
 
 interface ContextValue {
   targetAmount: string;
@@ -21,8 +25,44 @@ interface ContextValue {
 
 const SavingsCalculatorContext = createContext<ContextValue | undefined>(undefined);
 
-export function SavingsCalculatorProvider({ value, children }: { value: ContextValue; children: ReactNode }) {
-  return <SavingsCalculatorContext.Provider value={value}>{children}</SavingsCalculatorContext.Provider>;
+export function SavingsCalculatorProvider({ children }: { children: ReactNode }) {
+  const { data: savingsProducts } = useFetchSavingsProducts();
+
+  const { targetAmount, monthlyAmount, savingsPeriod, setTargetAmount, setMonthlyAmount, setSavingsPeriod } =
+    useProductFilterForm();
+
+  const { selectedSavingsProductId, setSelectedSavingsProductId, filteredProducts, recommendedProducts } =
+    useFilteredProducts({
+      savingsProducts,
+      monthlyAmount,
+      savingsPeriod,
+    });
+
+  const selectedSavingsProduct = useMemo(() => {
+    return findSavingsProductById(filteredProducts, selectedSavingsProductId);
+  }, [filteredProducts, selectedSavingsProductId]);
+
+  return (
+    <SavingsCalculatorContext.Provider
+      value={{
+        targetAmount,
+        setTargetAmount,
+        monthlyAmount,
+        setMonthlyAmount,
+        savingsPeriod,
+        setSavingsPeriod,
+
+        filteredProducts,
+        recommendedProducts,
+
+        selectedSavingsProduct,
+        selectedSavingsProductId,
+        setSelectedSavingsProductId,
+      }}
+    >
+      {children}
+    </SavingsCalculatorContext.Provider>
+  );
 }
 
 export function useSavingsCalculatorContext() {
