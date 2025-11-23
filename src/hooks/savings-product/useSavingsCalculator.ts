@@ -1,4 +1,4 @@
-import { useFetchSavingsProducts } from './queries/savingsProduct';
+import { useFetchSavingsProducts } from '../queries/savingsProduct';
 import { useFilteredProducts } from './useFilteredProducts';
 import { useProductFilterForm } from './useProductFilterForm';
 
@@ -8,7 +8,7 @@ export const useSavingsCalculator = () => {
   const { targetAmount, monthlyAmount, savingsPeriod, setTargetAmount, setMonthlyAmount, setSavingsPeriod } =
     useProductFilterForm();
 
-  const { filteredProducts } = useFilteredProducts({
+  const { filteredProducts, selectedSavingsProductId, setSelectedSavingsProductId } = useFilteredProducts({
     savingsProducts,
     monthlyAmount,
     savingsPeriod,
@@ -23,5 +23,7 @@ export const useSavingsCalculator = () => {
     setSavingsPeriod,
 
     filteredProducts,
+    selectedSavingsProductId,
+    setSelectedSavingsProductId,
   };
 };

@@ -21,3 +21,6 @@ export const filteredSavingsProducts = (
     return isMounthlyAmountValid && isPeriodValid;
   });
 };
+
+export const findSavingsProductById = (savingsProducts: SavingsProduct[], productId: string) =>
+  savingsProducts.find(product => product.id === productId);
