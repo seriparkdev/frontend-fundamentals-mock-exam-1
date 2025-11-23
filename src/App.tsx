@@ -2,7 +2,14 @@ import { GlobalPortal, GlobalStyles } from 'tosslib';
 import { Routes } from './pages/Routes';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      throwOnError: true,
+      retry: false,
+    },
+  },
+});
 
 export function App() {
   return (
