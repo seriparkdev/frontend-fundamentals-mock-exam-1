@@ -1,6 +1,8 @@
+import { findSavingsProductById } from 'utils/savingsProduct';
 import { useFetchSavingsProducts } from '../queries/savingsProduct';
 import { useFilteredProducts } from './useFilteredProducts';
 import { useProductFilterForm } from './useProductFilterForm';
+import { useMemo } from 'react';
 
 export const useSavingsCalculator = () => {
   const { data: savingsProducts } = useFetchSavingsProducts();
@@ -14,6 +16,10 @@ export const useSavingsCalculator = () => {
     savingsPeriod,
   });
 
+  const selectedSavingsProduct = useMemo(() => {
+    return findSavingsProductById(filteredProducts, selectedSavingsProductId);
+  }, [filteredProducts, selectedSavingsProductId]);
+
   return {
     targetAmount,
     setTargetAmount,
@@ -23,6 +29,7 @@ export const useSavingsCalculator = () => {
     setSavingsPeriod,
 
     filteredProducts,
+    selectedSavingsProduct,
     selectedSavingsProductId,
     setSelectedSavingsProductId,
   };

@@ -11,6 +11,7 @@ interface ContextValue {
   savingsPeriod: number;
   setSavingsPeriod: (terms: number) => void;
 
+  selectedSavingsProduct: SavingsProduct | undefined;
   selectedSavingsProductId: string;
   setSelectedSavingsProductId: (id: string) => void;
 
