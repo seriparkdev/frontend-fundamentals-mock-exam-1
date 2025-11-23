@@ -14,11 +14,15 @@ export function SavingsCalculatorPage() {
   return (
     <SavingsCalculatorProvider value={savingsCalculatorValues}>
       <NavigationBar title="적금 계산기" />
+
       <Spacing size={16} />
+
       <ProductFilterForm />
+
       <Spacing size={24} />
       <Border height={16} />
       <Spacing size={8} />
+
       <Tab onChange={setSelectedTab}>
         <Tab.Item value="products" selected={selectedTab === 'products'}>
           적금 상품
@@ -28,11 +32,13 @@ export function SavingsCalculatorPage() {
         </Tab.Item>
       </Tab>
       <Spacing size={8} />
+
       {selectedTab === 'products' && (
         <StatusHandlingBoundary>
           <SavingsProductPanel />
         </StatusHandlingBoundary>
       )}
+
       {selectedTab === 'results' && <CalculationResultPanel />}
     </SavingsCalculatorProvider>
   );
