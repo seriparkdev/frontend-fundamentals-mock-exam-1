@@ -1,6 +1,13 @@
-import { SelectBottomSheet, Spacing } from 'tosslib';
+import { Spacing } from 'tosslib';
 import { AmountField } from 'components/AmountField';
 import { useProductFilteringContext } from '../contexts/ProductFilteringContext';
+import { Select } from 'components/Select';
+
+const SAVINGS_PERIOD_OPTIONS = [
+  { value: 6, label: '6개월' },
+  { value: 12, label: '12개월' },
+  { value: 24, label: '24개월' },
+];
 
 export const ProductFilterForm = () => {
   const { targetAmount, setTargetAmount, monthlyAmount, setMonthlyAmount, savingsPeriod, setSavingsPeriod } =
@@ -24,16 +31,13 @@ export const ProductFilterForm = () => {
         suffix="원"
       />
       <Spacing size={16} />
-      <SelectBottomSheet
+      <Select
         label="저축 기간"
         title="저축 기간을 선택해주세요"
         value={savingsPeriod}
         onChange={setSavingsPeriod}
-      >
-        <SelectBottomSheet.Option value={6}>6개월</SelectBottomSheet.Option>
-        <SelectBottomSheet.Option value={12}>12개월</SelectBottomSheet.Option>
-        <SelectBottomSheet.Option value={24}>24개월</SelectBottomSheet.Option>
-      </SelectBottomSheet>
+        options={SAVINGS_PERIOD_OPTIONS}
+      />
     </>
   );
 };
