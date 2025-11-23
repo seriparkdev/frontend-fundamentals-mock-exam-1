@@ -1,15 +1,10 @@
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
-import { StatusHandlingBoundary } from 'components/StatusHandlingBoundary';
 import { SavingsCalculatorPage } from './SavingsCalculatorPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: (
-      <StatusHandlingBoundary>
-        <SavingsCalculatorPage />
-      </StatusHandlingBoundary>
-    ),
+    element: <SavingsCalculatorPage />,
   },
   {
     path: '*',
