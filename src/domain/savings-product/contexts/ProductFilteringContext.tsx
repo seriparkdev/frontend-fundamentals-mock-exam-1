@@ -1,11 +1,13 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
+import { useInput } from 'hooks/useInput';
+import { ChangeEventHandler, createContext, ReactNode, useContext, useState } from 'react';
+import { transformFormattedNumber } from 'utils/transform';
 
 interface ContextValue {
   targetAmount: string;
-  setTargetAmount: (amount: string) => void;
+  setTargetAmount: ChangeEventHandler;
 
   monthlyAmount: string;
-  setMonthlyAmount: (amount: string) => void;
+  setMonthlyAmount: ChangeEventHandler;
 
   savingsPeriod: number;
   setSavingsPeriod: (terms: number) => void;
@@ -17,8 +19,8 @@ interface ContextValue {
 const ProductFilteringContext = createContext<ContextValue | undefined>(undefined);
 
 export function ProductFilteringProvider({ children }: { children: ReactNode }) {
-  const [targetAmount, setTargetAmount] = useState<string>('');
-  const [monthlyAmount, setMonthlyAmount] = useState<string>('');
+  const [targetAmount, setTargetAmount] = useInput('', transformFormattedNumber);
+  const [monthlyAmount, setMonthlyAmount] = useInput('', transformFormattedNumber);
   const [savingsPeriod, setSavingsPeriod] = useState<number>(12);
   const [selectedProductId, setSelectedProductId] = useState<string>('');
 

@@ -1,5 +1,4 @@
-import { Spacing } from 'tosslib';
-import { AmountField } from 'components/AmountField';
+import { Spacing, TextField } from 'tosslib';
 import { useProductFilteringContext } from '../contexts/ProductFilteringContext';
 import { Select } from 'components/Select';
 
@@ -15,20 +14,20 @@ export const ProductFilterForm = () => {
 
   return (
     <>
-      <AmountField
+      <TextField
         value={targetAmount}
-        onChange={setTargetAmount}
         label="목표 금액"
         placeholder="목표 금액을 입력하세요"
         suffix="원"
+        onChange={setTargetAmount}
       />
       <Spacing size={16} />
-      <AmountField
+      <TextField
         value={monthlyAmount}
-        onChange={setMonthlyAmount}
         label="월 납입액"
         placeholder="희망 월 납입액을 입력하세요"
         suffix="원"
+        onChange={setMonthlyAmount}
       />
       <Spacing size={16} />
       <Select
