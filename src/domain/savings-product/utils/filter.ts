@@ -8,15 +8,15 @@ export const filteredSavingsProducts = (
 ) => {
   const monthlyAmountNumber = removeFormatNumber(monthlyAmount);
 
-  if (!monthlyAmount || !savingsPeriod) {
-    return savingsProducts;
-  }
-
   return savingsProducts.filter(product => {
+    const isPeriodValid = product.availableTerms === savingsPeriod;
+
+    if (!monthlyAmountNumber) {
+      return isPeriodValid;
+    }
+
     const isMounthlyAmountValid =
       product.minMonthlyAmount <= monthlyAmountNumber && product.maxMonthlyAmount >= monthlyAmountNumber;
-
-    const isPeriodValid = product.availableTerms === savingsPeriod;
 
     return isMounthlyAmountValid && isPeriodValid;
   });
