@@ -1,9 +1,11 @@
 import { Assets, colors, ListRow } from 'tosslib';
 import { formatNumber } from 'utils/format';
-import { useSavingsCalculatorContext } from 'domain/savings-product/contexts/SavingsCalculatorContext';
+import { useSavingsProductContext } from '../contexts/SavingsProductContext';
+import { useProductFilteringContext } from '../contexts/ProductFilteringContext';
 
 export const SavingsProductPanel = () => {
-  const { filteredProducts, selectedProductId, setSelectedProductId } = useSavingsCalculatorContext();
+  const { filteredProducts } = useSavingsProductContext();
+  const { selectedProductId, setSelectedProductId } = useProductFilteringContext();
 
   const isSelected = (productId: string) => selectedProductId === productId;
 

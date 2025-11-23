@@ -1,18 +1,13 @@
-import { useSavingsCalculatorContext } from 'domain/savings-product/contexts/SavingsCalculatorContext';
 import { Assets, Border, colors, ListHeader, ListRow, Spacing } from 'tosslib';
 import { formatNumber, removeFormatNumber } from 'utils/format';
 import { calculateDifferenceAmount, calculateExpectedProfit, calculateMonthlyAmount } from '../utils/calculator';
+import { useSavingsProductContext } from '../contexts/SavingsProductContext';
+import { useProductFilteringContext } from '../contexts/ProductFilteringContext';
 
 export const CalculationResultPanel = () => {
-  const {
-    selectedProduct,
-    selectedProductId,
-    setSelectedProductId,
-    monthlyAmount,
-    savingsPeriod,
-    targetAmount,
-    recommendedProducts,
-  } = useSavingsCalculatorContext();
+  const { monthlyAmount, savingsPeriod, targetAmount, selectedProductId, setSelectedProductId } =
+    useProductFilteringContext();
+  const { selectedProduct, recommendedProducts } = useSavingsProductContext();
 
   if (!selectedProduct) {
     return <ListRow contents={<ListRow.Texts type="1RowTypeA" top="상품을 선택해주세요." />} />;

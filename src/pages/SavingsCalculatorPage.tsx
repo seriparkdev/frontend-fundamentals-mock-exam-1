@@ -1,15 +1,17 @@
 import { CalculationResultPanel } from 'domain/savings-product/components/CalculationResultPanel';
 import { ProductFilterForm } from 'domain/savings-product/components/ProductFilterForm';
 import { SavingsProductPanel } from 'domain/savings-product/components/SavingsProductPanel';
-import { SavingsCalculatorProvider } from 'domain/savings-product/contexts/SavingsCalculatorContext';
 import { useState } from 'react';
 import { Border, NavigationBar, Spacing, Tab } from 'tosslib';
+import { StatusHandlingBoundary } from 'components/StatusHandlingBoundary';
+import { SavingsProductProvider } from 'domain/savings-product/contexts/SavingsProductContext';
+import { ProductFilteringProvider } from 'domain/savings-product/contexts/ProductFilteringContext';
 
 export function SavingsCalculatorPage() {
   const [selectedTab, setSelectedTab] = useState<string>('products');
 
   return (
-    <SavingsCalculatorProvider>
+    <ProductFilteringProvider>
       <NavigationBar title="적금 계산기" />
 
       <Spacing size={16} />
@@ -31,9 +33,12 @@ export function SavingsCalculatorPage() {
 
       <Spacing size={8} />
 
-      {selectedTab === 'products' && <SavingsProductPanel />}
-
-      {selectedTab === 'results' && <CalculationResultPanel />}
-    </SavingsCalculatorProvider>
+      <StatusHandlingBoundary>
+        <SavingsProductProvider>
+          {selectedTab === 'products' && <SavingsProductPanel />}
+          {selectedTab === 'results' && <CalculationResultPanel />}
+        </SavingsProductProvider>
+      </StatusHandlingBoundary>
+    </ProductFilteringProvider>
   );
 }
