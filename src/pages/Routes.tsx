@@ -1,5 +1,5 @@
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
-import { StatusHandlingBoundary } from 'components/common/StatusHandlingBoundary';
+import { StatusHandlingBoundary } from 'components/StatusHandlingBoundary';
 import { SavingsCalculatorPage } from './SavingsCalculatorPage';
 
 const router = createBrowserRouter([

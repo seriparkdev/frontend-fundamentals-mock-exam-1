@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { fetchSavingsProducts } from 'api/savingsProduct';
 import { QUERY_KEY } from 'contants/queryKey';
+import { fetchSavingsProducts } from './http';
 
 export const useFetchSavingsProducts = () => {
   return useSuspenseQuery({

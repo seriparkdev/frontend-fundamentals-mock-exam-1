@@ -1,7 +1,7 @@
-import { useSavingsCalculatorContext } from 'contexts/SavingsCalculatorContext';
+import { useSavingsCalculatorContext } from 'domain/savings-product/contexts/SavingsCalculatorContext';
 import { Assets, Border, colors, ListHeader, ListRow, Spacing } from 'tosslib';
 import { formatNumber, removeFormatNumber } from 'utils/format';
-import { calculateExpectedProfit, calculateMonthlyAmount, calculateDifferenceAmount } from 'utils/savingsProduct';
+import { calculateDifferenceAmount, calculateExpectedProfit, calculateMonthlyAmount } from '../utils/calculator';
 
 export const CalculationResultPanel = () => {
   const {

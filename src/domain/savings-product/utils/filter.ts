@@ -1,8 +1,6 @@
-import { SavingsProduct } from 'types/savingsProduct';
-import { removeFormatNumber } from './format';
-import { round } from './math';
+import { removeFormatNumber } from 'utils/format';
+import { SavingsProduct } from '../api/http';
 
-// 적금 상품 필터링 관련 함수
 export const filteredSavingsProducts = (
   savingsProducts: SavingsProduct[],
   monthlyAmount: string,
@@ -26,16 +24,3 @@ export const filteredSavingsProducts = (
 
 export const findSavingsProductById = (savingsProducts: SavingsProduct[], productId: string) =>
   savingsProducts.find(product => product.id === productId);
-
-// 적금 상품 계산 관련 함수
-export const calculateExpectedProfit = (monthlyAmount: number, savingsPeriod: number, annualRate: number) => {
-  return monthlyAmount * savingsPeriod * (1 + annualRate * 0.5);
-};
-
-export const calculateDifferenceAmount = (targetAmount: number, expectedProfit: number) => {
-  return targetAmount - expectedProfit;
-};
-
-export const calculateMonthlyAmount = (annualRate: number, savingsPeriod: number, targetAmount: number) => {
-  return round(targetAmount / (savingsPeriod * (1 + annualRate * 0.5)), 1000);
-};

@@ -1,9 +1,9 @@
-import { useFetchSavingsProducts } from 'hooks/queries/savingsProduct';
-import { useFilteredProducts } from 'hooks/savings-product/useFilteredProducts';
-import { useProductFilterForm } from 'hooks/savings-product/useProductFilterForm';
 import { createContext, ReactNode, useContext, useMemo } from 'react';
-import { SavingsProduct } from 'types/savingsProduct';
-import { findSavingsProductById } from 'utils/savingsProduct';
+import { SavingsProduct } from '../api/http';
+import { useFetchSavingsProducts } from '../api/queries';
+import { useProductFilterForm } from '../hooks/useProductFilterForm';
+import { useFilteredProducts } from '../hooks/useFilteredProducts';
+import { findSavingsProductById } from '../utils/filter';
 
 interface ContextValue {
   targetAmount: string;

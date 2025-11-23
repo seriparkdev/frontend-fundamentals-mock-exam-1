@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
-import { SavingsProduct } from 'types/savingsProduct';
-import { filteredSavingsProducts, findSavingsProductById } from 'utils/savingsProduct';
+import { filteredSavingsProducts, findSavingsProductById } from '../utils/filter';
+import { SavingsProduct } from '../api/http';
 
 interface Props {
   savingsProducts: SavingsProduct[];

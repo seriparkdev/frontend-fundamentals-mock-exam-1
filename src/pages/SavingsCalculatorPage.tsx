@@ -1,7 +1,7 @@
-import { CalculationResultPanel } from 'components/savings-product/CalculationResultPanel';
-import { ProductFilterForm } from 'components/savings-product/ProductFilterForm';
-import { SavingsProductPanel } from 'components/savings-product/SavingsProductPanel';
-import { SavingsCalculatorProvider } from 'contexts/SavingsCalculatorContext';
+import { CalculationResultPanel } from 'domain/savings-product/components/CalculationResultPanel';
+import { ProductFilterForm } from 'domain/savings-product/components/ProductFilterForm';
+import { SavingsProductPanel } from 'domain/savings-product/components/SavingsProductPanel';
+import { SavingsCalculatorProvider } from 'domain/savings-product/contexts/SavingsCalculatorContext';
 import { useState } from 'react';
 import { Border, NavigationBar, Spacing, Tab } from 'tosslib';
 
