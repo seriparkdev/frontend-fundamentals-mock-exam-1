@@ -1,7 +1,6 @@
-import { StatusHandlingBoundary } from 'components/common/StatusHandlingBoundary';
 import { CalculationResultPanel } from 'components/savings-product/CalculationResultPanel';
 import { ProductFilterForm } from 'components/savings-product/ProductFilterForm';
-import { SavingsProductPanel } from 'components/savings-product/savingsProductPanel';
+import { SavingsProductPanel } from 'components/savings-product/SavingsProductPanel';
 import { SavingsCalculatorProvider } from 'contexts/SavingsCalculatorContext';
 import { useSavingsCalculator } from 'hooks/savings-product/useSavingsCalculator';
 import { useState } from 'react';
@@ -33,11 +32,7 @@ export function SavingsCalculatorPage() {
       </Tab>
       <Spacing size={8} />
 
-      {selectedTab === 'products' && (
-        <StatusHandlingBoundary>
-          <SavingsProductPanel />
-        </StatusHandlingBoundary>
-      )}
+      {selectedTab === 'products' && <SavingsProductPanel />}
 
       {selectedTab === 'results' && <CalculationResultPanel />}
     </SavingsCalculatorProvider>
