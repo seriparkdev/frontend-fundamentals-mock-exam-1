@@ -1,23 +1,20 @@
-import { CalculatorTabPanel } from 'components/CalculatorTabPanel';
 import { StatusHandlingBoundary } from 'components/common/StatusHandlingBoundary';
-import { Border, NavigationBar, SelectBottomSheet, Spacing, Tab, TextField } from 'tosslib';
+import { ProductFilterForm } from 'components/ProductFilterForm';
+import { SavingsProductPanel } from 'components/savingsProductPanel';
+import { SavingsCalculatorProvider } from 'contexts/SavingsCalculatorContext';
+import { useSavingsCalculator } from 'hooks/useSavingsCalculator';
+import { Border, NavigationBar, Spacing, Tab } from 'tosslib';
 
 export function SavingsCalculatorPage() {
+  const savingsCalculatorValues = useSavingsCalculator();
+
   return (
-    <>
+    <SavingsCalculatorProvider value={savingsCalculatorValues}>
       <NavigationBar title="적금 계산기" />
 
       <Spacing size={16} />
 
-      <TextField label="목표 금액" placeholder="목표 금액을 입력하세요" suffix="원" />
-      <Spacing size={16} />
-      <TextField label="월 납입액" placeholder="희망 월 납입액을 입력하세요" suffix="원" />
-      <Spacing size={16} />
-      <SelectBottomSheet label="저축 기간" title="저축 기간을 선택해주세요" value={12} onChange={() => {}}>
-        <SelectBottomSheet.Option value={6}>6개월</SelectBottomSheet.Option>
-        <SelectBottomSheet.Option value={12}>12개월</SelectBottomSheet.Option>
-        <SelectBottomSheet.Option value={24}>24개월</SelectBottomSheet.Option>
-      </SelectBottomSheet>
+      <ProductFilterForm />
 
       <Spacing size={24} />
       <Border height={16} />
@@ -33,7 +30,7 @@ export function SavingsCalculatorPage() {
       </Tab>
 
       <StatusHandlingBoundary>
-        <CalculatorTabPanel />
+        <SavingsProductPanel />
       </StatusHandlingBoundary>
 
       {/* 아래는 계산 결과 탭 내용이에요. 계산 결과 탭을 구현할 때 주석을 해제해주세요. */}
@@ -113,6 +110,6 @@ export function SavingsCalculatorPage() {
 
       {/* 아래는 사용자가 적금 상품을 선택하지 않고 계산 결과 탭을 선택했을 때 출력해주세요. */}
       {/* <ListRow contents={<ListRow.Texts type="1RowTypeA" top="상품을 선택해주세요." />} /> */}
-    </>
+    </SavingsCalculatorProvider>
   );
 }

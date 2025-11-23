@@ -1,19 +1,17 @@
 import { Assets, colors, ListRow } from 'tosslib';
-import { SavingsProduct } from 'types/savingsProduct';
-import { formatNumber } from 'utils/formatNumer';
+import { formatNumber } from 'utils/format';
+import { useSavingsCalculatorContext } from 'contexts/SavingsCalculatorContext';
 
-interface Props {
-  products: SavingsProduct[];
-}
+export const SavingsProductPanel = () => {
+  const { filteredProducts } = useSavingsCalculatorContext();
 
-export const SavingsProductPanel = ({ products }: Props) => {
-  if (products.length === 0) {
+  if (filteredProducts.length === 0) {
     return <ListRow contents={<ListRow.Texts type="1RowTypeA" top="조건과 일치하는 적금 상품이 없습니다." />} />;
   }
 
   return (
     <>
-      {products.map(product => (
+      {filteredProducts.map(product => (
         <ListRow
           key={product.id}
           contents={
