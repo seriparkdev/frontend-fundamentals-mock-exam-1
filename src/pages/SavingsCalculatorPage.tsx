@@ -1,15 +1,15 @@
 import { CalculationResultPanel } from 'domain/savings-product/components/CalculationResultPanel';
 import { SavingsProductPanel } from 'domain/savings-product/components/SavingsProductPanel';
-import { useState } from 'react';
 import { Border, NavigationBar, SelectBottomSheet, Spacing, Tab, TextField } from 'tosslib';
 import { StatusHandlingBoundary } from 'components/StatusHandlingBoundary';
 import { SavingsProductProvider } from 'domain/savings-product/contexts/SavingsProductContext';
 import { useFilteringStates } from 'domain/savings-product/hooks/useFilteringStates';
 import { FilteringStatesProvider } from 'domain/savings-product/contexts/FilteringStatesContext';
+import { useView } from 'hooks/useView';
 
 export function SavingsCalculatorPage() {
   const filteringStates = useFilteringStates();
-  const [selectedTab, setSelectedTab] = useState<string>('products');
+  const [view, setView] = useView('products');
 
   return (
     <FilteringStatesProvider states={filteringStates}>
@@ -52,11 +52,11 @@ export function SavingsCalculatorPage() {
       <Border height={16} />
       <Spacing size={8} />
 
-      <Tab onChange={setSelectedTab}>
-        <Tab.Item value="products" selected={selectedTab === 'products'}>
+      <Tab onChange={setView}>
+        <Tab.Item value="products" selected={view === 'products'}>
           적금 상품
         </Tab.Item>
-        <Tab.Item value="results" selected={selectedTab === 'results'}>
+        <Tab.Item value="results" selected={view === 'results'}>
           계산 결과
         </Tab.Item>
       </Tab>
@@ -65,8 +65,8 @@ export function SavingsCalculatorPage() {
 
       <StatusHandlingBoundary>
         <SavingsProductProvider>
-          {selectedTab === 'products' && <SavingsProductPanel />}
-          {selectedTab === 'results' && <CalculationResultPanel />}
+          {view === 'products' && <SavingsProductPanel />}
+          {view === 'results' && <CalculationResultPanel />}
         </SavingsProductProvider>
       </StatusHandlingBoundary>
     </FilteringStatesProvider>
