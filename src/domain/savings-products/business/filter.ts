@@ -1,5 +1,5 @@
 import { removeFormatNumber } from 'utils/format';
-import { SavingsProduct } from '../api/http';
+import { SavingsProduct } from '../api';
 
 export const filteredSavingsProducts = (
   savingsProducts: SavingsProduct[],

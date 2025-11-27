@@ -1,8 +1,8 @@
 import { createContext, ReactNode, useContext, useMemo } from 'react';
-import { SavingsProduct } from '../api/http';
-import { filteredSavingsProducts, findSavingsProductById } from '../utils/filter';
-import { useFetchSavingsProducts } from '../api/queries';
+import { SavingsProduct } from 'domain/savings-products/api';
 import { useFilteringStatesContext } from './FilteringStatesContext';
+import { useFetchSavingsProducts } from 'domain/savings-products/queries';
+import { filteredSavingsProducts, findSavingsProductById } from '../business/filter';
 
 interface ContextValue {
   filteredProducts: SavingsProduct[];

@@ -11,6 +11,5 @@ export interface SavingsProduct {
 }
 
 export const fetchSavingsProducts = async () => {
-  const response = await http.get<SavingsProduct[]>(ENDPOINT.SAVINGS_PRODUCTS);
-  return response;
+  return await http.get<SavingsProduct[]>(ENDPOINT.SAVINGS_PRODUCTS);
 };

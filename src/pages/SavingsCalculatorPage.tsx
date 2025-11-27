@@ -1,10 +1,10 @@
-import { CalculationResultPanel } from 'domain/savings-product/components/CalculationResultPanel';
-import { SavingsProductPanel } from 'domain/savings-product/components/SavingsProductPanel';
+import { CalculationResultPanel } from 'domain/savings-products/components/CalculationResultPanel';
+import { SavingsProductPanel } from 'domain/savings-products/components/SavingsProductPanel';
 import { Border, NavigationBar, SelectBottomSheet, Spacing, Tab, TextField } from 'tosslib';
 import { StatusHandlingBoundary } from 'components/StatusHandlingBoundary';
-import { SavingsProductProvider } from 'domain/savings-product/contexts/SavingsProductContext';
-import { useFilteringStates } from 'domain/savings-product/hooks/useFilteringStates';
-import { FilteringStatesProvider } from 'domain/savings-product/contexts/FilteringStatesContext';
+import { SavingsProductProvider } from 'domain/savings-products/contexts/SavingsProductContext';
+import { useFilteringStates } from 'domain/savings-products/hooks/useFilteringStates';
+import { FilteringStatesProvider } from 'domain/savings-products/contexts/FilteringStatesContext';
 import { useView } from 'hooks/useView';
 
 export function SavingsCalculatorPage() {
