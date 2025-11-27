@@ -1,8 +1,8 @@
 import { createContext, ReactNode, useContext, useMemo } from 'react';
 import { SavingsProduct } from '../api/http';
 import { filteredSavingsProducts, findSavingsProductById } from '../utils/filter';
-import { useProductFilteringContext } from './ProductFilteringContext';
 import { useFetchSavingsProducts } from '../api/queries';
+import { useFilteringStatesContext } from './FilteringStatesContext';
 
 interface ContextValue {
   filteredProducts: SavingsProduct[];
@@ -19,7 +19,7 @@ interface Props {
 export function SavingsProductProvider({ children }: Props) {
   const { data: savingsProducts } = useFetchSavingsProducts();
 
-  const { monthlyAmount, savingsPeriod, selectedProductId } = useProductFilteringContext();
+  const { monthlyAmount, savingsPeriod, selectedProductId } = useFilteringStatesContext();
 
   const filteredProducts = useMemo(
     () => filteredSavingsProducts(savingsProducts, monthlyAmount, savingsPeriod),

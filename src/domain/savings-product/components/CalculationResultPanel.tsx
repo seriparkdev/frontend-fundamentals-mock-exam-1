@@ -2,11 +2,11 @@ import { Assets, Border, colors, ListHeader, ListRow, Spacing } from 'tosslib';
 import { formatNumber, removeFormatNumber } from 'utils/format';
 import { calculateDifferenceAmount, calculateExpectedProfit, calculateMonthlyAmount } from '../utils/calculator';
 import { useSavingsProductContext } from '../contexts/SavingsProductContext';
-import { useProductFilteringContext } from '../contexts/ProductFilteringContext';
+import { useFilteringStatesContext } from '../contexts/FilteringStatesContext';
 
 export const CalculationResultPanel = () => {
   const { monthlyAmount, savingsPeriod, targetAmount, selectedProductId, setSelectedProductId } =
-    useProductFilteringContext();
+    useFilteringStatesContext();
   const { selectedProduct, recommendedProducts } = useSavingsProductContext();
 
   if (!selectedProduct) {

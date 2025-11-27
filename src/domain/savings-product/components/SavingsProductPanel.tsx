@@ -1,11 +1,11 @@
 import { Assets, colors, ListRow } from 'tosslib';
 import { formatNumber } from 'utils/format';
 import { useSavingsProductContext } from '../contexts/SavingsProductContext';
-import { useProductFilteringContext } from '../contexts/ProductFilteringContext';
+import { useFilteringStatesContext } from '../contexts/FilteringStatesContext';
 
 export const SavingsProductPanel = () => {
   const { filteredProducts } = useSavingsProductContext();
-  const { selectedProductId, setSelectedProductId } = useProductFilteringContext();
+  const { selectedProductId, setSelectedProductId } = useFilteringStatesContext();
 
   const isSelected = (productId: string) => selectedProductId === productId;
 

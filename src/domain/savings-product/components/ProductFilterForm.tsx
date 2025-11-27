@@ -1,9 +1,9 @@
 import { SelectBottomSheet, Spacing, TextField } from 'tosslib';
-import { useProductFilteringContext } from '../contexts/ProductFilteringContext';
+import { useFilteringStatesContext } from '../contexts/FilteringStatesContext';
 
 export const ProductFilterForm = () => {
   const { targetAmount, setTargetAmount, monthlyAmount, setMonthlyAmount, savingsPeriod, setSavingsPeriod } =
-    useProductFilteringContext();
+    useFilteringStatesContext();
 
   return (
     <>
