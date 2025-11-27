@@ -1,8 +1,7 @@
 import { Assets, Border, colors, ListHeader, ListRow, Spacing } from 'tosslib';
-import { formatNumber, removeFormatNumber } from 'utils/format';
+import { calculateDifferenceAmount, calculateExpectedProfit, calculateMonthlyAmount } from '../business/calculation';
 import { useSavingsProductContext } from '../contexts/SavingsProductContext';
 import { useFilteringStatesContext } from '../contexts/FilteringStatesContext';
-import { calculateDifferenceAmount, calculateExpectedProfit, calculateMonthlyAmount } from '../business/calculation';
 
 export const CalculationResultPanel = () => {
   const { monthlyAmount, savingsPeriod, targetAmount, selectedProductId, setSelectedProductId } =
@@ -23,18 +22,11 @@ export const CalculationResultPanel = () => {
     }
   };
 
-  const monthlyAmountNumber = removeFormatNumber(monthlyAmount);
-  const targetAmountNumber = removeFormatNumber(targetAmount);
+  const expectedProfit = calculateExpectedProfit(monthlyAmount, savingsPeriod, selectedProduct.annualRate);
 
-  const expectedProfit = calculateExpectedProfit(monthlyAmountNumber, savingsPeriod, selectedProduct.annualRate);
+  const differenceAmount = calculateDifferenceAmount(monthlyAmount, expectedProfit);
 
-  const differenceAmount = calculateDifferenceAmount(targetAmountNumber, expectedProfit);
-
-  const recommendedMonthlyAmount = calculateMonthlyAmount(
-    selectedProduct.annualRate,
-    savingsPeriod,
-    targetAmountNumber
-  );
+  const recommendedMonthlyAmount = calculateMonthlyAmount(selectedProduct.annualRate, savingsPeriod, targetAmount);
 
   return (
     <>
@@ -44,7 +36,7 @@ export const CalculationResultPanel = () => {
             type="2RowTypeA"
             top="예상 수익 금액"
             topProps={{ color: colors.grey600 }}
-            bottom={`${formatNumber(expectedProfit)}원`}
+            bottom={`${expectedProfit.toLocaleString()}원`}
             bottomProps={{ fontWeight: 'bold', color: colors.blue600 }}
           />
         }
@@ -55,7 +47,7 @@ export const CalculationResultPanel = () => {
             type="2RowTypeA"
             top="목표 금액과의 차액"
             topProps={{ color: colors.grey600 }}
-            bottom={`${formatNumber(differenceAmount)}원`}
+            bottom={`${differenceAmount.toLocaleString()}원`}
             bottomProps={{ fontWeight: 'bold', color: colors.blue600 }}
           />
         }
@@ -66,7 +58,7 @@ export const CalculationResultPanel = () => {
             type="2RowTypeA"
             top="예상 수익 금액"
             topProps={{ color: colors.grey600 }}
-            bottom={`${formatNumber(recommendedMonthlyAmount)}원`}
+            bottom={`${recommendedMonthlyAmount.toLocaleString()}원`}
             bottomProps={{ fontWeight: 'bold', color: colors.blue600 }}
           />
         }
@@ -89,7 +81,7 @@ export const CalculationResultPanel = () => {
               topProps={{ fontSize: 16, fontWeight: 'bold', color: colors.grey900 }}
               middle={`연 이자율: ${product.annualRate}%`}
               middleProps={{ fontSize: 14, color: colors.blue600, fontWeight: 'medium' }}
-              bottom={`${formatNumber(product.minMonthlyAmount)}원 ~ ${formatNumber(product.maxMonthlyAmount)}원 | ${product.availableTerms}개월`}
+              bottom={`${product.minMonthlyAmount.toLocaleString()}원 ~ ${product.maxMonthlyAmount.toLocaleString()}원 | ${product.availableTerms}개월`}
               bottomProps={{ fontSize: 13, color: colors.grey600 }}
             />
           }

@@ -1,5 +1,4 @@
 import { Assets, colors, ListRow } from 'tosslib';
-import { formatNumber } from 'utils/format';
 import { useSavingsProductContext } from '../contexts/SavingsProductContext';
 import { useFilteringStatesContext } from '../contexts/FilteringStatesContext';
 
@@ -33,7 +32,7 @@ export const SavingsProductPanel = () => {
               topProps={{ fontSize: 16, fontWeight: 'bold', color: colors.grey900 }}
               middle={`연 이자율: ${product.annualRate}%`}
               middleProps={{ fontSize: 14, color: colors.blue600, fontWeight: 'medium' }}
-              bottom={`${formatNumber(product.minMonthlyAmount)}원 ~ ${formatNumber(product.maxMonthlyAmount)}원 | ${product.availableTerms}개월`}
+              bottom={`${product.minMonthlyAmount.toLocaleString()}원 ~ ${product.maxMonthlyAmount.toLocaleString()}원 | ${product.availableTerms}개월`}
               bottomProps={{ fontSize: 13, color: colors.grey600 }}
             />
           }

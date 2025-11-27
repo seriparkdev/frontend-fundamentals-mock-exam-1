@@ -1,10 +1,8 @@
-import { transformFormattedNumber } from 'utils/transform';
-import { useInput } from '../../../hooks/useInput';
 import { useState } from 'react';
 
 export function useFilteringStates() {
-  const [targetAmount, setTargetAmount] = useInput('', transformFormattedNumber);
-  const [monthlyAmount, setMonthlyAmount] = useInput('', transformFormattedNumber);
+  const [targetAmount, setTargetAmount] = useState<number | null>(null);
+  const [monthlyAmount, setMonthlyAmount] = useState<number | null>(null);
   const [savingsPeriod, setSavingsPeriod] = useState<number>(12);
   const [selectedProductId, setSelectedProductId] = useState<string>('');
 

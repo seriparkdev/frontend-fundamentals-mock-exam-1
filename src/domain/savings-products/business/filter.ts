@@ -1,25 +1,19 @@
-import { removeFormatNumber } from 'utils/format';
 import { SavingsProduct } from '../api';
 
-export const filteredSavingsProducts = (
-  savingsProducts: SavingsProduct[],
-  monthlyAmount: string,
-  savingsPeriod: number
-) => {
-  const monthlyAmountNumber = removeFormatNumber(monthlyAmount);
+export const filterBySavingsPeriod = (product: SavingsProduct, savingsPeriod: number | null) => {
+  if (savingsPeriod === null) {
+    return true;
+  }
 
-  return savingsProducts.filter(product => {
-    const isPeriodValid = product.availableTerms === savingsPeriod;
+  return product.availableTerms === savingsPeriod;
+};
 
-    if (!monthlyAmountNumber) {
-      return isPeriodValid;
-    }
+export const filterByMonthlyAmount = (product: SavingsProduct, monthlyAmount: number | null) => {
+  if (monthlyAmount === null) {
+    return true;
+  }
 
-    const isMounthlyAmountValid =
-      product.minMonthlyAmount <= monthlyAmountNumber && product.maxMonthlyAmount >= monthlyAmountNumber;
-
-    return isMounthlyAmountValid && isPeriodValid;
-  });
+  return product.minMonthlyAmount <= monthlyAmount && product.maxMonthlyAmount >= monthlyAmount;
 };
 
 export const findSavingsProductById = (savingsProducts: SavingsProduct[], productId: string) =>

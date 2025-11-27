@@ -2,7 +2,7 @@ import { createContext, ReactNode, useContext, useMemo } from 'react';
 import { SavingsProduct } from 'domain/savings-products/api';
 import { useFilteringStatesContext } from './FilteringStatesContext';
 import { useFetchSavingsProducts } from 'domain/savings-products/queries';
-import { filteredSavingsProducts, findSavingsProductById } from '../business/filter';
+import { filterByMonthlyAmount, filterBySavingsPeriod, findSavingsProductById } from '../business/filter';
 
 interface ContextValue {
   filteredProducts: SavingsProduct[];
@@ -22,7 +22,10 @@ export function SavingsProductProvider({ children }: Props) {
   const { monthlyAmount, savingsPeriod, selectedProductId } = useFilteringStatesContext();
 
   const filteredProducts = useMemo(
-    () => filteredSavingsProducts(savingsProducts, monthlyAmount, savingsPeriod),
+    () =>
+      savingsProducts.filter(
+        product => filterBySavingsPeriod(product, savingsPeriod) && filterByMonthlyAmount(product, monthlyAmount)
+      ),
     [savingsProducts, monthlyAmount, savingsPeriod]
   );
 

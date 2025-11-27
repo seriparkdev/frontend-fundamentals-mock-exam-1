@@ -1,17 +1,18 @@
-import { ChangeEventHandler, createContext, ReactNode, useContext } from 'react';
+import { createContext, ReactNode, useContext } from 'react';
+import { useFilteringStates } from '../hooks/useFilteringStates';
 
 interface ContextValue {
-  targetAmount: string;
-  setTargetAmount: ChangeEventHandler;
+  targetAmount: ReturnType<typeof useFilteringStates>['targetAmount'];
+  setTargetAmount: ReturnType<typeof useFilteringStates>['setTargetAmount'];
 
-  monthlyAmount: string;
-  setMonthlyAmount: ChangeEventHandler;
+  monthlyAmount: ReturnType<typeof useFilteringStates>['monthlyAmount'];
+  setMonthlyAmount: ReturnType<typeof useFilteringStates>['setMonthlyAmount'];
 
-  savingsPeriod: number;
-  setSavingsPeriod: (terms: number) => void;
+  savingsPeriod: ReturnType<typeof useFilteringStates>['savingsPeriod'];
+  setSavingsPeriod: ReturnType<typeof useFilteringStates>['setSavingsPeriod'];
 
-  selectedProductId: string;
-  setSelectedProductId: (id: string) => void;
+  selectedProductId: ReturnType<typeof useFilteringStates>['selectedProductId'];
+  setSelectedProductId: ReturnType<typeof useFilteringStates>['setSelectedProductId'];
 }
 
 const FilteringStatesContext = createContext<ContextValue | undefined>(undefined);
