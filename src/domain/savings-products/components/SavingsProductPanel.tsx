@@ -43,3 +43,15 @@ export const SavingsProductPanel = () => {
     </>
   );
 };
+
+SavingsProductPanel.Loading = () => {
+  return (
+    <>
+      <ListRow contents={<ListRow.Texts type="1RowTypeA" top="적금 상품 목록을 불러오는 중..." />} />
+    </>
+  );
+};
+
+SavingsProductPanel.Error = () => {
+  return <ListRow contents={<ListRow.Texts type="1RowTypeA" top="적금 상품 목록을 불러올 수 없어요." />} />;
+};

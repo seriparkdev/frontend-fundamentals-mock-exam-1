@@ -1,12 +1,13 @@
 import { CalculationResultPanel } from 'domain/savings-products/components/CalculationResultPanel';
 import { SavingsProductPanel } from 'domain/savings-products/components/SavingsProductPanel';
 import { Border, NavigationBar, SelectBottomSheet, Spacing, Tab } from 'tosslib';
-import { StatusHandlingBoundary } from 'components/StatusHandlingBoundary';
 import { SavingsProductProvider } from 'domain/savings-products/contexts/SavingsProductContext';
 import { useFilteringStates } from 'domain/savings-products/hooks/useFilteringStates';
 import { FilteringStatesProvider } from 'domain/savings-products/contexts/FilteringStatesContext';
 import { useView } from 'hooks/useView';
 import { AmountInput } from 'components/AmountInput';
+import { ErrorBoundary } from 'react-error-boundary';
+import { Suspense } from 'react';
 
 export function SavingsCalculatorPage() {
   const filteringStates = useFilteringStates();
@@ -64,12 +65,14 @@ export function SavingsCalculatorPage() {
 
       <Spacing size={8} />
 
-      <StatusHandlingBoundary>
-        <SavingsProductProvider>
-          {view === 'products' && <SavingsProductPanel />}
-          {view === 'results' && <CalculationResultPanel />}
-        </SavingsProductProvider>
-      </StatusHandlingBoundary>
+      <ErrorBoundary fallback={<SavingsProductPanel.Error />}>
+        <Suspense fallback={<SavingsProductPanel.Loading />}>
+          <SavingsProductProvider>
+            {view === 'products' && <SavingsProductPanel />}
+            {view === 'results' && <CalculationResultPanel />}
+          </SavingsProductProvider>
+        </Suspense>
+      </ErrorBoundary>
     </FilteringStatesProvider>
   );
 }
