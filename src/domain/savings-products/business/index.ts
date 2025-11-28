@@ -27,7 +27,7 @@ export const filterByProductId = (product: SavingsProduct, productId: string | n
   return product.id === productId;
 };
 
-export type OrderBy = (a: SavingsProduct, b: SavingsProduct) => number;
+export type OrderBySavingsProduct = (a: SavingsProduct, b: SavingsProduct) => number;
 
 export const orderByAnnualRate = (a: SavingsProduct, b: SavingsProduct) => b.annualRate - a.annualRate;
 

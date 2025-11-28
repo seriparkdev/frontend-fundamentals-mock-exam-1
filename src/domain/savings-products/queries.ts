@@ -1,10 +1,10 @@
 import { QUERY_KEY } from 'contants/queryKey';
-import { fetchSavingsProducts, SavingsProduct } from './api';
-import { FilterSavingsProduct } from './business';
+import { fetchSavingsProducts } from './api';
+import { FilterSavingsProduct, OrderBySavingsProduct } from './business';
 
 interface Props {
   filters?: FilterSavingsProduct[];
-  orderBy?: (a: SavingsProduct, b: SavingsProduct) => number;
+  orderBy?: OrderBySavingsProduct;
   limit?: number;
 }
 
