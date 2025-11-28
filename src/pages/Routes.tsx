@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import { SavingsCalculatorPage } from './SavingsCalculatorPage';
+import { NuqsAdapter } from 'nuqs/adapters/react-router/v7';
 
 const router = createBrowserRouter([
   {
@@ -13,5 +14,9 @@ const router = createBrowserRouter([
 ]);
 
 export function Routes() {
-  return <RouterProvider router={router} />;
+  return (
+    <NuqsAdapter>
+      <RouterProvider router={router} />
+    </NuqsAdapter>
+  );
 }

@@ -1,28 +1,33 @@
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { FilterSavingsProduct } from '../business';
+import { fetchSavingsProductsQueryOptions } from '../queries';
 import { Assets, colors, ListRow } from 'tosslib';
-import { useSavingsProductContext } from '../contexts/SavingsProductContext';
-import { useFilteringStatesContext } from '../contexts/FilteringStatesContext';
+import { useSelectedId } from '../hooks/useSelectedId';
 
-export const SavingsProductPanel = () => {
-  const { filteredProducts } = useSavingsProductContext();
-  const { selectedProductId, setSelectedProductId } = useFilteringStatesContext();
+interface Props {
+  filters: FilterSavingsProduct[];
+  orderBy?: any;
+  limit?: number;
+}
 
-  const isSelected = (productId: string) => selectedProductId === productId;
+export const ProductList = ({ filters, orderBy, limit }: Props) => {
+  const { data: products } = useSuspenseQuery(
+    fetchSavingsProductsQueryOptions({
+      filters,
+      orderBy,
+      limit,
+    })
+  );
 
-  const handleSelect = (productId: string) => {
-    if (isSelected(productId)) {
-      setSelectedProductId('');
-    } else {
-      setSelectedProductId(productId);
-    }
-  };
+  const [selectedId, setSelectedId] = useSelectedId();
 
-  if (filteredProducts.length === 0) {
+  if (products.length === 0) {
     return <ListRow contents={<ListRow.Texts type="1RowTypeA" top="조건과 일치하는 적금 상품이 없습니다." />} />;
   }
 
   return (
     <>
-      {filteredProducts.map(product => (
+      {products.map(product => (
         <ListRow
           key={product.id}
           contents={
@@ -36,15 +41,15 @@ export const SavingsProductPanel = () => {
               bottomProps={{ fontSize: 13, color: colors.grey600 }}
             />
           }
-          right={isSelected(product.id) ? <Assets.Icon name="icon-check-circle-green" /> : null}
-          onClick={() => handleSelect(product.id)}
+          right={selectedId === product.id ? <Assets.Icon name="icon-check-circle-green" /> : null}
+          onClick={() => setSelectedId(product.id)}
         />
       ))}
     </>
   );
 };
 
-SavingsProductPanel.Loading = () => {
+ProductList.Loading = () => {
   return (
     <>
       <ListRow contents={<ListRow.Texts type="1RowTypeA" top="적금 상품 목록을 불러오는 중..." />} />
@@ -52,6 +57,6 @@ SavingsProductPanel.Loading = () => {
   );
 };
 
-SavingsProductPanel.Error = () => {
+ProductList.Error = () => {
   return <ListRow contents={<ListRow.Texts type="1RowTypeA" top="적금 상품 목록을 불러올 수 없어요." />} />;
 };

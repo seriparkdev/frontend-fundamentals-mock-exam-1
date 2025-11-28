@@ -1,9 +1,9 @@
 import { QUERY_KEY } from 'contants/queryKey';
 import { fetchSavingsProducts, SavingsProduct } from './api';
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { FilterSavingsProduct } from './business';
 
 interface Props {
-  filters?: Array<(product: SavingsProduct) => boolean>;
+  filters?: FilterSavingsProduct[];
   orderBy?: (a: SavingsProduct, b: SavingsProduct) => number;
   limit?: number;
 }
@@ -18,13 +18,8 @@ export const fetchSavingsProductsQueryOptions = ({ filters, orderBy, limit }: Pr
       if (orderBy !== null) {
         return filteredProducts.sort(orderBy).slice(0, limit);
       }
+
+      return filteredProducts.slice(0, limit);
     },
   };
-};
-
-export const useFetchSavingsProducts = () => {
-  return useSuspenseQuery({
-    queryKey: [QUERY_KEY.SAVINGS_PRODUCTS],
-    queryFn: fetchSavingsProducts,
-  });
 };
